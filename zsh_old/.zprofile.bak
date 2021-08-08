@@ -1,6 +1,0 @@
-export PATH=$PATH:~/.local/bin:~/.npm-packages/bin:~/go/bin
-
-if systemctl -q is-active graphical.target && [[ $(fgconsole 2> /dev/null) == 1 ]]; then
-   # exec startx -- -keeptty &> ~/.xorg.log
-   XDG_SESSION_TYPE=wayland dbus-run-session gnome-session
-fi
