@@ -1,0 +1,9 @@
+alias ls='ls --color=auto'
+alias pomogoro="pomogoro --config /home/farhanmry/todo/pomogoro/config.toml"
+alias xampp="sudo /opt/lampp/xampp"
+alias pyactivate="source .venv/bin/activate"
+alias srvc="sudo systemctl"
+alias GPU="DRI_PRIME=1"
+alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+alias condaon='eval "$(/home/farhanmry/anaconda3/bin/conda shell.zsh hook)"'
+alias t='todo.sh'
