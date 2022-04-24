@@ -1,13 +1,36 @@
-alias pomogoro="pomogoro --config /home/farhanmry/todo/pomogoro/config.toml"
+#alias pomogoro="pomogoro --config /home/farhanmry/todo/pomogoro/config.toml"
 alias xampp="sudo /opt/lampp/xampp"
 alias pyactivate="source .venv/bin/activate"
-alias srvc="sudo systemctl"
 alias GPU="DRI_PRIME=1"
-alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias condaon='eval "$(/home/farhanmry/anaconda3/bin/conda shell.zsh hook)"'
-alias t='todo.sh'
+alias todo='todo.sh'
 
 ## Exa
 alias ex='exa'
 alias ls='exa'
 alias la='exa -la --header'
+alias lst='exa --tree'
+
+## GIT
+
+alias glo='git log --oneline --decorate'
+alias glog='git log --oneline --decorate --graph'
+alias gst='git status'
+alias gsw='git switch'
+
+## Tmux
+alias ta='tmux attach -t '
+alias tl='tmux ls'
+alias tksv='tmux kill-server'
+
+## Tmuxp
+alias tload='tmuxp load $(tmuxp ls | fzf-tmux) --yes'
+alias tfreeze='tmuxp freeze'
+
+## Project Alias
+alias project='cd ~/Code/project/$(ls ~/Code/project | fzf-tmux)'
+alias pro='cd ~/Code/project/$(ls ~/Code/project | fzf-tmux)'
+
+alias switch='~/script/dark-light-theme/switch.sh'
+
+alias hey='sudo'
