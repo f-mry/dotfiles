@@ -41,6 +41,7 @@ packer.init {
 }
 
 packer.startup(function(use)
+    use 'lewis6991/impatient.nvim'
     use 'wbthomason/packer.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-lua/popup.nvim'
@@ -149,12 +150,6 @@ packer.startup(function(use)
         config = function ()
                    require "plugins.harpoon"
                  end
-    }
-
-    -- Cosmetics
-    use {
-        'kyazdani42/nvim-web-devicons',
-        event = "BufEnter"
     }
 
     use {
