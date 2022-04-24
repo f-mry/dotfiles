@@ -17,8 +17,8 @@ telescope.setup{
             '--smart-case'
         },
         -- prompt_position = "bottom",
-        prompt_prefix = "> ",
-        selection_caret = "> ",
+        prompt_prefix = "🔭 ",
+        selection_caret = "» ",
         entry_prefix = "  ",
         initial_mode = "insert",
         -- selection_strategy = "reset",
@@ -39,7 +39,8 @@ telescope.setup{
         -- winblend = 0,
         -- width = 0.75,
         -- preview_cutoff = 120,
-        -- results_height = 1,
+        results_height = 1,
+        height=0.3,
         -- results_width = 0.8,
         -- border = {},
         -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
@@ -68,4 +69,4 @@ telescope.setup{
 
 }
 
-require('telescope').load_extension('fzf')
+telescope.load_extension('fzf')

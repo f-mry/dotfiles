@@ -1,9 +1,3 @@
-local present1, lspconfig = pcall(require, "lspconfig")
-local present2, lspinstall = pcall(require, "lspinstall")
-if not (present1 or present2) then
-    return
-end
-
 local function on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -18,93 +12,113 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>Telescope lsp_references theme=ivy<CR>', opts)
+    -- buf_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
+    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
     buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-    buf_set_keymap('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', opts)
-    buf_set_keymap('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
-    buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-    buf_set_keymap('n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
-    buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+    -- buf_set_keymap('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', opts)
+    buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    -- buf_set_keymap('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
+    buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+    -- buf_set_keymap('n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next({float = false})<CR>', opts)
+    -- buf_set_keymap('n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({float = false})<CR>', opts)
+    buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
-    buf_set_keymap('n', '<C-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<CR>', opts)
-    buf_set_keymap('n', '<C-b>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<CR>', opts)
-
-    require "lsp_signature".on_attach({
-        floating_window = false,
-    })
+    -- require "lsp_signature".on_attach({
+    --     floating_window = true,
+    --     floating_window_above_cur_line = true,
+    --     hint_prefix = "",
+    --     hint_enable = false,
+    --     doc_lines = 0,
+    -- })
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        buf_set_keymap("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+local lsp_installer = require("nvim-lsp-installer")
 
--- lspInstall + lspconfig stuff
+-- Register a handler that will be called for all installed servers.
+-- Alternatively, you may also register handlers on specific server instances instead (see example below).
+lsp_installer.on_server_ready(function(server)
 
-local function setup_servers()
-    lspinstall.setup()
-    local servers = lspinstall.installed_servers()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
 
-    for _, lang in pairs(servers) do
-        if lang ~= "lua" then
-            lspconfig[lang].setup {
-                -- on_attach = require('maps').on_attach,
-                on_attach = on_attach,
-                capabilities = capabilities,
-                root_dir = vim.loop.cwd
+    -- This setup() function is exactly the same as lspconfig's setup function.
+    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+    -- server:setup(opts)
+    --
+    -- https://github.com/williamboman/nvim-lsp-installer/wiki/Advanced-Configuration#overriding-the-default-lsp-server-options
+    local opts = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        -- capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities),
+        root_dir = vim.loop.cwd
+    }
+
+    local server_opts = {
+        ["gopls"] = function()
+            opts.settings = {
+                gopls = {
+                    analyses = {
+                        unusedparams = true,
+                    },
+                    staticcheck = true,
+                    usePlaceholders = true,
+                }
             }
-        elseif lang == "lua" then
-            lspconfig[lang].setup {
-                root_dir = vim.loop.cwd,
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = {"vim"}
+        end,
+        ["lua"] = function()
+            opts.settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = {"vim"}
+                    },
+                    workspace = {
+                        library = {
+                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
                         },
-                        workspace = {
-                            library = {
-                                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-                            },
-                            maxPreload = 100000,
-                            preloadFileSize = 10000
-                        },
-                        telemetry = {
-                            enable = false
-                        }
+                        maxPreload = 100000,
+                        preloadFileSize = 10000
+                    },
+                    telemetry = {
+                        enable = false
                     }
                 }
             }
         end
-    end
-end
+    }
 
-setup_servers()
+    local server_options = server_opts[server.name] and server_opts[server.name]() or opts
+    server:setup(coq.lsp_ensure_capabilities(server_options))
+    -- server:setup(server_options)
+end)
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function()
-    setup_servers() -- reload installed servers
-    vim.cmd("bufdo e") -- triggers FileType autocmd that starts the server
-end
 
 -- replace the default lsp diagnostic symbols
-function lspSymbol(name, icon)
-    vim.fn.sign_define("LspDiagnosticsSign" .. name, {text = icon, numhl = "LspDiagnosticsDefaul" .. name})
+local function lspSymbol(name, icon)
+    vim.fn.sign_define("DiagnosticSign" .. name, {text = icon, numhl = "LspDiagnosticsDefault" .. name, texthl = "DiagnosticSign" .. name})
 end
 
--- lspSymbol("Error", "")
--- lspSymbol("Warning", "")
--- lspSymbol("Information", "")
--- lspSymbol("Hint", "")
+lspSymbol("Error", "")
+lspSymbol("Warn", "")
+lspSymbol("Info", "")
+lspSymbol("Hint", "")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(
@@ -120,6 +134,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
             update_in_insert = false
         }
     )
+
 
 -- suppress error messages from lang servers
 vim.notify = function(msg, log_level, _opts)

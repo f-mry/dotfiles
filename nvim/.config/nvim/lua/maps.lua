@@ -1,4 +1,3 @@
-local cmd = vim.cmd
 local map = vim.api.nvim_set_keymap
 
 local options = {noremap = true}
@@ -23,9 +22,6 @@ map('n', '[b', '<cmd>bprevious<cr>zz', options)
 map('n', '<leader>bo', '<cmd>ls<cr>', options)
 
 -- Convenience
-map('n', 'n', 'nzzzv', options)
-map('n', 'N', 'Nzzzv', options)
-map('n', '<C-L>', '<cmd>nohlsearch<cr>', options)
 
 -- tab management
 map('n', 'ta', '<cmd>tabnew<cr>', options)
@@ -34,23 +30,15 @@ map('n', 'tl', 'gt', options)
 map('n', 'tc', ':tabclose<cr>', options)
 
 -- File Manager
-map('n', '<leader>e', '<cmd>Ex<cr>', options)
+-- map('n', '<leader>e', '<cmd>Ex<cr>', options)
 
 -- telescope
-map('n', '<leader>ff', '<cmd>Telescope fd<cr>', options)
-map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', options)
-map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', options)
+map('n', '<leader>ff', '<cmd>Telescope fd theme=ivy previewer=false<cr>', options)
+map('n', '<leader>fg', '<cmd>Telescope live_grep theme=ivy preview=true<cr>', options)
+map('n', '<leader>fb', '<cmd>Telescope buffers theme=ivy previewer=false<cr>', options)
 
 -- Insert Mode
 map('i', 'jk', '<Esc>', options)
-
--- Snippets
--- vim.g.UltiSnipsExpandTrigger = "<c-j>"
--- vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
-map('i', '<C-j>', 'v:lua.tab_complete()', {expr = true})
-map('s', '<C-j>', 'v:lua.tab_complete()', {expr = true})
-map('i', '<C-k>', 'v:lua.s_tab_complete()', {expr = true})
-map('s', '<C-k>', 'v:lua.s_tab_complete()', {expr = true})
 
 
 -- Formatting
@@ -61,9 +49,15 @@ map('n', 'ga', '<Plug>(EasyAlign)', {})
 map('n', '<leader>gs', ':Git<cr>', options)
 map('n', '<leader>gl', ':Gclog<cr>', options)
 
-map('n', '<A-g>', ':Lspsaga open_floaterm lazygit<cr>', options)
+-- Background
+function _G.toggle_background()
+    if vim.o.background == "dark" then
+        vim.o.background = "light"
+    else
+        vim.o.background = "dark"
+    end
+end
 
--- Terminal
-map('n', '<A-t>', ':Lspsaga open_floaterm<cr>', options)
-map('t', '<A-c>', '<C-\\><C-n>:Lspsaga close_floaterm<cr>', options)
+-- map('n', '<F5>', ":lua require('rose-pine.functions').toggle_variant({'base', 'dawn'})<cr>", options )
+map('n', '<F5>', ":lua toggle_background()<cr>", options )
 
