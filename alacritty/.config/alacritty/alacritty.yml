@@ -3,9 +3,10 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-env:
-  WINIT_UNIX_BACKEND: x11
-  # TERM variable
+# env:
+#   WINIT_UNIX_BACKEND: x11
+  # WAYLAND_DISPLAY:alacritty
+  # # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
@@ -14,9 +15,8 @@ env:
   # TERM: screen-256color
 
 import:
-    - /home/farhanmry/.config/alacritty/colors/base16-onedark-256.yml
-    # - /home/farhanmry/.config/alacritty/colors/base16-classic-dark-256.yml
-    # - /home/farhanmry/.config/alacritty/colors/tokyonight_storm.yml
+    - /home/farhanmry/.config/alacritty/colors/base16-material-darker-256.yml
+    # - /home/farhanmry/.config/alacritty/colors/base16-horizon-light.yml
 
 window:
   # Window dimensions (changes require restart)
@@ -40,7 +40,7 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 3
+    x: 0
     y: 0
 
   # Spread additional padding evenly around the terminal content.
@@ -56,7 +56,7 @@ window:
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
   # decorations: none
-  decorations: full
+  decorations: none
 
   # Startup Mode (changes require restart)
   #
@@ -70,7 +70,7 @@ window:
   startup_mode: Windowed
 
   # Window title
-  #title: Alacritty
+  title: Terminal
 
   # Window class (Linux/BSD only):
   # class:
@@ -104,8 +104,9 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    # family: FiraCode Nerd Font 
+    # family: FiraCode Nerd Font Mono
     family: mononoki Nerd Font 
+    # family: Hack
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -116,8 +117,9 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
+    # family: FiraCode Nerd Font Mono
     family: mononoki Nerd Font 
-    # family: FiraCode Nerd Font 
+    # family: Hack
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -129,7 +131,8 @@ font:
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
     family: mononoki Nerd Font  
-    # family: FiraCode Nerd Font 
+    # family: FiraCode Nerd Font Mono
+    # family: Hack
 
     # The `style` can be specified to pick a specific face.
     style: Italic
@@ -141,7 +144,8 @@ font:
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
     family: mononoki Nerd Font 
-    # family: FiraCode Nerd Font 
+    # family: FiraCode Nerd Font Mono
+    # family: Hack
 
     # The `style` can be specified to pick a specific face.
     style: Bold Italic
