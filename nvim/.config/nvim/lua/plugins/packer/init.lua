@@ -164,6 +164,21 @@ packer.startup(function(use)
         "nvim-telescope/telescope-fzf-native.nvim",
         run = "make",
     }
+
+    -- Cosmetics
+    use {
+        'kyazdani42/nvim-web-devicons',
+        event = "BufEnter"
+    }
+
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons'},
+        config = function()
+            require "plugins.lualine"
+        end
+    }
+
     -- Git stuffs
     use {
         'tpope/vim-fugitive',

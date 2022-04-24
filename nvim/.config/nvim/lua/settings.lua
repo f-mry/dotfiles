@@ -32,7 +32,8 @@ bo.si = true
 bo.autoindent = true
 
 -- General
-o.showmode = true
+o.showmode = false
+o.ruler = false
 
 -- mouse support
 o.mouse = 'a'
