@@ -76,6 +76,8 @@ packer.startup(function(use)
         end
     }
 
+    -- completion
+
     use {
         'ms-jpq/coq_nvim',
         branch = 'coq',
@@ -83,6 +85,10 @@ packer.startup(function(use)
 			vim.g.coq_settings = {
 				auto_start = 'shut-up',
 				["keymap.jump_to_mark"] = "<C-j>",
+                ["clients.tmux.enabled"] = false,
+                -- ["clients.tree_sitter.enabled"] = false,
+                ["clients.tags.enabled"] = false,
+                ["display.preview.border"] = "double"
 			}
         end,
         requires = {
@@ -91,21 +97,12 @@ packer.startup(function(use)
         disable = false
     }
 
-    -- Language Related
     use {
-        'crispgm/nvim-go',
-        opt = true,
-        ft = {'go'},
-        config = function ()
-            require('go').setup({
-                auto_format = false,
-                auto_lint = false,
-                lint_prompt_style = 'vt',
-            })
-
+        'ray-x/go.nvim',
+        config = function()
+            require('go').setup()
         end
     }
-
     -- Convenience
     use {
         'jiangmiao/auto-pairs',
