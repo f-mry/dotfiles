@@ -11,10 +11,14 @@ lualine.setup {
     globalstatus = false,
   },
   sections = {
-    lualine_a = {},
+        lualine_a = {
+            function ()
+               return ' '
+            end
+        },
     lualine_b = {'filename'},
-    lualine_c = {'branch'},
-    lualine_x = {'diff', 'diagnostics', 'filetype'},
+    lualine_c = {},
+    lualine_x = {'branch', 'diff', 'diagnostics', 'filetype'},
     lualine_y = {'progress', 'location'},
     lualine_z = {}
   },
@@ -30,7 +34,7 @@ lualine.setup {
   extensions = {'fzf', 'quickfix', 'fugitive',
         { sections =
             {
-                lualine_a = {'mode'},
+                lualine_b = {'mode'},
                 lualine_z = {}
             },
             filetypes = {'TelescopePrompt'}
