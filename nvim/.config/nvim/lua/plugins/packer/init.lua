@@ -87,10 +87,16 @@ packer.startup(function(use)
 
     use {
         'ray-x/go.nvim',
+        opt = true,
+        ft = "go",
         config = function()
-            require('go').setup()
+            require('go').setup({
+                run_in_floaterm = true
+            })
         end
     }
+    use {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}
+
     -- Convenience
     use {
         'jiangmiao/auto-pairs',
@@ -161,6 +167,15 @@ packer.startup(function(use)
         requires = { 'kyazdani42/nvim-web-devicons'},
         config = function()
             require "plugins.lualine"
+        end
+    }
+
+    use {
+        'norcalli/nvim-colorizer.lua',
+        opt = true,
+        ft = {'css', 'javascript', 'html'},
+        config = function()
+            require "plugins.colorizer"
         end
     }
 
