@@ -2,13 +2,10 @@ local function on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     local opts = {noremap = true, silent = true}
-
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
-
     -- Mappings.
-
     buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
@@ -30,13 +27,6 @@ local function on_attach(client, bufnr)
     buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({float = false})<CR>', opts)
     buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
-    -- require "lsp_signature".on_attach({
-    --     floating_window = true,
-    --     floating_window_above_cur_line = true,
-    --     hint_prefix = "",
-    --     hint_enable = false,
-    --     doc_lines = 0,
-    -- })
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
         buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
@@ -45,70 +35,56 @@ local function on_attach(client, bufnr)
     end
 end
 
-local lsp_installer = require("nvim-lsp-installer")
+require("nvim-lsp-installer").setup{}
+local servers = { "bashls", "gopls", "intelephense", "jdtls", "pylsp", "sumneko_lua", "texlab", "tsserver", "vimls", "cssls" }
+local lspconfig = require('lspconfig')
+local coq = require('coq')
 
--- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
-lsp_installer.on_server_ready(function(server)
-
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
-
-    -- This setup() function is exactly the same as lspconfig's setup function.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    -- server:setup(opts)
-    --
-    -- https://github.com/williamboman/nvim-lsp-installer/wiki/Advanced-Configuration#overriding-the-default-lsp-server-options
-    local opts = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        -- capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities),
-        root_dir = vim.loop.cwd
-    }
-
-    local server_opts = {
-        ["gopls"] = function()
-            opts.settings = {
-                gopls = {
-                    analyses = {
-                        unusedparams = true,
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+local opts = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = vim.loop.cwd
+}
+local server_opts = {
+    ["gopls"] = function()
+        opts.settings = {
+            gopls = {
+                analyses = {
+                    unusedparams = true,
+                },
+                staticcheck = true,
+                usePlaceholders = true,
+            }
+        }
+    end,
+    ["sumneko_lua"] = function()
+        opts.settings = {
+            Lua = {
+                diagnostics = {
+                    globals = {"vim"}
+                },
+                workspace = {
+                    library = {
+                        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
                     },
-                    staticcheck = true,
-                    usePlaceholders = true,
+                    maxPreload = 100000,
+                    preloadFileSize = 10000
+                },
+                telemetry = {
+                    enable = false
                 }
             }
-        end,
-        ["lua"] = function()
-            opts.settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = {"vim"}
-                    },
-                    workspace = {
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-                        },
-                        maxPreload = 100000,
-                        preloadFileSize = 10000
-                    },
-                    telemetry = {
-                        enable = false
-                    }
-                }
-            }
-        end
-    }
+        }
+    end
+}
 
-    local server_options = server_opts[server.name] and server_opts[server.name]() or opts
-    server:setup(coq.lsp_ensure_capabilities(server_options))
-    -- server:setup(server_options)
-end)
-
+for _, server in ipairs(servers) do
+    local server_options = server_opts[server] and server_opts[server]() or opts
+    lspconfig[server].setup( coq.lsp_ensure_capabilities(server_options) )
+end
 
 -- replace the default lsp diagnostic symbols
 local function lspSymbol(name, icon)

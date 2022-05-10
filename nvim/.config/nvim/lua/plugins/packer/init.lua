@@ -57,8 +57,6 @@ packer.startup(function(use)
 
     use {
         'williamboman/nvim-lsp-installer',
-        event = "BufEnter",
-		opt = true,
 		requires = {
 			'neovim/nvim-lspconfig'
 		},
@@ -66,14 +64,6 @@ packer.startup(function(use)
 			require "plugins.lspconfig"
 		end
 
-    }
-
-    use {
-        'neovim/nvim-lspconfig',
-        after = "nvim-lsp-installer",
-        config = function()
-            require "plugins.lspconfig"
-        end
     }
 
     -- completion
@@ -86,8 +76,6 @@ packer.startup(function(use)
 				auto_start = 'shut-up',
 				["keymap.jump_to_mark"] = "<C-j>",
                 ["clients.tmux.enabled"] = false,
-                -- ["clients.tree_sitter.enabled"] = false,
-                ["clients.tags.enabled"] = false,
                 ["display.preview.border"] = "double"
 			}
         end,
