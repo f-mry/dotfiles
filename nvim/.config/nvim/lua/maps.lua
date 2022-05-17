@@ -32,10 +32,6 @@ map('n', 'tc', ':tabclose<cr>', options)
 -- File Manager
 -- map('n', '<leader>e', '<cmd>Ex<cr>', options)
 
--- telescope
-map('n', '<leader>ff', '<cmd>Telescope fd theme=ivy previewer=false<cr>', options)
-map('n', '<leader>fg', '<cmd>Telescope live_grep theme=ivy preview=true<cr>', options)
-map('n', '<leader>fb', '<cmd>Telescope buffers theme=ivy previewer=false<cr>', options)
 
 -- Insert Mode
 map('i', 'jk', '<Esc>', options)

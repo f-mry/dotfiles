@@ -73,7 +73,7 @@ packer.startup(function(use)
         branch = 'coq',
         config = function()
 			vim.g.coq_settings = {
-				auto_start = 'shut-up',
+				auto_start = true,
 				["keymap.jump_to_mark"] = "<C-j>",
                 ["clients.tmux.enabled"] = false,
                 ["display.preview.border"] = "double"
@@ -89,13 +89,16 @@ packer.startup(function(use)
         'ray-x/go.nvim',
         opt = true,
         ft = "go",
+        requires = {
+            'ray-x/guihua.lua',
+            run = 'cd lua/fzy && make'
+        },
         config = function()
             require('go').setup({
                 run_in_floaterm = true
             })
         end
     }
-    use {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}
 
     -- Convenience
     use {
@@ -143,17 +146,24 @@ packer.startup(function(use)
                  end
     }
 
-    use {
-        "nvim-telescope/telescope.nvim",
-        cmd    = "Telescope",
-        config = function()
-            require "plugins.telescope"
-        end
-    }
+    -- use {
+    --     "nvim-telescope/telescope.nvim",
+    --     cmd    = "Telescope",
+    --     config = function()
+    --         require "plugins.telescope"
+    --     end
+    -- }
+
+    -- use {
+    --     "nvim-telescope/telescope-fzf-native.nvim",
+    --     run = "make",
+    -- }
 
     use {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        run = "make",
+        'ibhagwan/fzf-lua',
+        config = function()
+            require "plugins.fzf-lua"
+        end
     }
 
     -- Cosmetics
@@ -198,51 +208,8 @@ packer.startup(function(use)
     use {'folke/tokyonight.nvim'}
     use {'christianchiarulli/nvcode-color-schemes.vim'}
     use {'Shatur/neovim-ayu'}
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        tag = 'v1.*',
-        config = function ()
-            require('rose-pine').setup({
-                ---@usage 'main'|'moon'
-                dark_variant = 'main',
-                bold_vert_split = true,
-                dim_nc_background = false,
-                disable_background = false,
-                disable_float_background = false,
-                disable_italics = true,
-                ---@usage string hex value or named color from rosepinetheme.com/palette
-                groups = {
-                    background = 'base',
-                    panel = 'surface',
-                    border = 'highlight_med',
-                    comment = 'muted',
-                    link = 'iris',
-                    punctuation = 'subtle',
+    require('plugins.colorscheme')
 
-                    error = 'love',
-                    hint = 'iris',
-                    info = 'foam',
-                    warn = 'gold',
-
-                    headings = {
-                        h1 = 'iris',
-                        h2 = 'foam',
-                        h3 = 'rose',
-                        h4 = 'gold',
-                        h5 = 'pine',
-                        h6 = 'foam',
-                    }
-                    -- or set all headings at once
-                    -- headings = 'subtle'
-                },
-                -- Change specific vim highlight groups
-                highlight_groups = {
-                    ColorColumn = { bg = 'rose' }
-                }
-            })
-        end
-    })
 
 end)
 

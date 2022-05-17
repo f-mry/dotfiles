@@ -70,3 +70,13 @@ telescope.setup{
 }
 
 telescope.load_extension('fzf')
+
+-- keybind
+local map = vim.api.nvim_set_keymap
+
+local options = {noremap = true}
+
+map('n', '<leader>ff', '<cmd>Telescope fd theme=ivy previewer=false<cr>', options)
+map('n', '<leader>fg', '<cmd>Telescope live_grep theme=ivy preview=true<cr>', options)
+map('n', '<leader>fb', '<cmd>Telescope buffers theme=ivy previewer=false<cr>', options)
+map('n', 'gr', '<cmd>Telescope lsp_references theme=ivy<CR>', options)

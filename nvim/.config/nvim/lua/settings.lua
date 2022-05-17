@@ -30,12 +30,12 @@ o.shiftwidth = 4
 o.softtabstop = 4
 o.expandtab = true
 
+o.spelllang = "id,en"
+
 bo.smartindent = true
 bo.autoindent = true
 
 o.formatoptions = 'cqjr'
-
-
 
 -- General
 o.showmode = false
@@ -49,19 +49,17 @@ o.mouse = 'a'
 
 -- Colors
 
-g.tokyonight_style = 'night'
-g.tokyonight_sidebars = { "qf", "fugitive", "terminal", "packer", "netrw" }
 
 o.background = 'dark'
 o.tgc = true
 cmd('syntax on')
-cmd('colorscheme tokyonight')
--- cmd('colorscheme rose-pine')
--- cmd('colorscheme ayu')
+cmd('colorscheme ayu')
 
+--IDK
 g.python3_host_prog = '/usr/bin/python'
 
-o.spelllang = "id,en"
-
-
+-- still idk but usefull
 cmd('au TextYankPost * silent! lua vim.highlight.on_yank({timeout=100})')
+o.swapfile = false
+o.undodir = '/home/farhanmry/.nvim/undodir'
+o.undofile = true

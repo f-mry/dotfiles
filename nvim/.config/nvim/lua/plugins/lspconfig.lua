@@ -9,7 +9,6 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap('n', 'gr', '<cmd>Telescope lsp_references theme=ivy<CR>', opts)
     -- buf_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
     buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
@@ -36,7 +35,7 @@ local function on_attach(client, bufnr)
 end
 
 require("nvim-lsp-installer").setup{}
-local servers = { "bashls", "gopls", "intelephense", "jdtls", "pylsp", "sumneko_lua", "texlab", "tsserver", "vimls", "cssls" }
+local servers = { "bashls", "gopls", "intelephense", "jdtls", "pylsp", "sumneko_lua", "texlab", "tsserver", "vimls", "cssls", "pyright", "eslint" }
 local lspconfig = require('lspconfig')
 local coq = require('coq')
 
@@ -48,6 +47,10 @@ local opts = {
     root_dir = vim.loop.cwd
 }
 local server_opts = {
+    ["eslint"] = function ()
+        local eslint_config = require("lspconfig.server_configurations.eslint")
+        opts.cmd = {"npm", "exec", unpack(eslint_config.default_config.cmd)}
+    end,
     ["gopls"] = function()
         opts.settings = {
             gopls = {
