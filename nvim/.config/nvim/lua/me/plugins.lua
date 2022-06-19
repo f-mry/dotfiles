@@ -143,18 +143,11 @@ packer.startup(function(use)
     }
 
 
-    use {
-        "crispgm/nvim-go",
-
-    }
-
-
+    use {"crispgm/nvim-go"}
     -- Colors
     use {'folke/tokyonight.nvim'}
     use {'christianchiarulli/nvcode-color-schemes.vim'}
     use {'Shatur/neovim-ayu'}
-    require('plugins.colorscheme')
-
 
 end)
 
