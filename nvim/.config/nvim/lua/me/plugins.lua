@@ -49,27 +49,17 @@ packer.startup(function(use)
     -- lsp and completion
     use {
         'nvim-treesitter/nvim-treesitter',
-        event = "BufRead",
-        config = function ()
-            require "plugins.treesitter"
-        end
     }
 
     -- debugging
 
     use {
         'mfussenegger/nvim-dap',
-        config = function ()
-            require "plugins.dap"
-        end
     }
 
     use {
         "rcarriga/nvim-dap-ui",
         requires = {"mfussenegger/nvim-dap"},
-        config = function ()
-            require "plugins.dap-ui"
-        end
     }
 
     use {
@@ -77,9 +67,6 @@ packer.startup(function(use)
 		requires = {
 			'neovim/nvim-lspconfig'
 		},
-		config = function()
-			require "plugins.lspconfig"
-		end
 
     }
 
@@ -88,9 +75,6 @@ packer.startup(function(use)
     use {
         'ms-jpq/coq_nvim',
         branch = 'coq',
-        config = function()
-            require "plugins.coq"
-        end,
         requires = {
             'ms-jpq/coq.artifacts',
         },
@@ -99,7 +83,6 @@ packer.startup(function(use)
     -- Convenience
     use {
         'jiangmiao/auto-pairs',
-        event = "BufEnter",
     }
     use 'tpope/vim-surround'
 
@@ -110,60 +93,36 @@ packer.startup(function(use)
 
     use {
         'junegunn/vim-easy-align',
-        event = "BufRead",
-		opt = true
     }
 
     use {
         'ggandor/lightspeed.nvim',
-        opt = true,
-        event = "BufRead",
-        -- config = function()
-        --     require('lightspeed').init_highlight(true)
-        -- end
     }
 
     use {
         'tpope/vim-repeat',
-        opt = true,
-        event = "BufRead"
     }
 
     use {
         'ThePrimeagen/harpoon',
-        config = function ()
-                   require "plugins.harpoon"
-                 end
     }
 
     use {
         'ibhagwan/fzf-lua',
-        config = function()
-            require "plugins.fzf-lua"
-        end
     }
 
     -- Cosmetics
     use {
         'kyazdani42/nvim-web-devicons',
-        event = "BufEnter"
     }
 
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons'},
-        config = function()
-            require "plugins.lualine"
-        end
     }
 
     use {
         'norcalli/nvim-colorizer.lua',
-        opt = true,
-        ft = {'css', 'javascript', 'html'},
-        config = function()
-            require "plugins.colorizer"
-        end
     }
 
     -- Git stuffs
@@ -174,11 +133,6 @@ packer.startup(function(use)
     use {
         'lewis6991/gitsigns.nvim',
         tag = 'release',
-        event = "BufRead",
-        opt = true,
-        config = function ()
-			require('gitsigns').setup()
-        end,
     }
 
     -- language specific
@@ -186,21 +140,11 @@ packer.startup(function(use)
     use {
         "leoluz/nvim-dap-go",
         requires = {'mfussenegger/nvim-dap'},
-        opt = true,
-        ft = "go",
-        config = function ()
-            require "plugins.dap-go"
-        end
     }
 
 
     use {
         "crispgm/nvim-go",
-        opt = true,
-        ft = "go",
-        config = function () 
-            require "plugins.nvim-go"
-        end
 
     }
 
