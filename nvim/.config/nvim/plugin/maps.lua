@@ -2,7 +2,7 @@ local map = vim.api.nvim_set_keymap
 
 local options = {noremap = true}
 
-require('utils')
+-- require('utils')
 
 -- leader key
 vim.g.mapleader = ','
@@ -30,7 +30,7 @@ map('n', 'tl', 'gt', options)
 map('n', 'tc', ':tabclose<cr>', options)
 
 -- File Manager
--- map('n', '<leader>e', '<cmd>Ex<cr>', options)
+map('n', '-', '<cmd>e %:h<cr>', options)
 
 
 -- Insert Mode

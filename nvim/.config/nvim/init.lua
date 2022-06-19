@@ -1,4 +1,5 @@
 require('impatient')
-require('plugins.packer')
-require('maps')
-require('settings')
+-- require('plugins.packer')
+require('me.plugins')
+-- require('maps')
+-- require('settings')

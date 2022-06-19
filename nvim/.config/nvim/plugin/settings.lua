@@ -4,7 +4,7 @@ local bo = vim.bo
 local g = vim.g
 local cmd = vim.cmd
 
-local u = require('utils')
+-- local u = require('utils')
 
 o.completeopt = "menu,menuone,noselect"
 
@@ -22,6 +22,8 @@ o.confirm = true
 -- o.clipboard = "unnamedplus"
 -- o.smartcase = true
 o.hidden = true
+o.wrap = false
+o.sidescroll = 10
 
 -- Formatting
 bo.textwidth = 120
@@ -49,11 +51,9 @@ o.mouse = 'a'
 
 -- Colors
 
-
-o.background = 'dark'
 o.tgc = true
 cmd('syntax on')
-cmd('colorscheme ayu')
+cmd('colorscheme tokyonight')
 
 --IDK
 g.python3_host_prog = '/usr/bin/python'
@@ -61,5 +61,5 @@ g.python3_host_prog = '/usr/bin/python'
 -- still idk but usefull
 cmd('au TextYankPost * silent! lua vim.highlight.on_yank({timeout=100})')
 o.swapfile = false
-o.undodir = '/home/farhanmry/.nvim/undodir'
-o.undofile = true
+-- o.undodir = '/home/farhanmry/.nvim/undodir'
+o.undofile = false
