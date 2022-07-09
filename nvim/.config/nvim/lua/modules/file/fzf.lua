@@ -1,9 +1,8 @@
--- keybind
 local map = vim.api.nvim_set_keymap
 
 local options = {noremap = true}
 
-require'fzf-lua'.setup {
+require('fzf-lua').setup {
     fzf_colors = {
         ["fg"]          = { "fg", "CursorLine" },
         ["bg"]          = { "bg", "Normal" },
@@ -20,8 +19,6 @@ require'fzf-lua'.setup {
         ["gutter"]      = { "bg", "Normal" },
     },
 }
-
-
 
 map('n', '<leader>ff', '<cmd>FzfLua files previewer=false<cr>', options)
 map('n', '<leader>flg', '<cmd>FzfLua live_grep<cr>', options)

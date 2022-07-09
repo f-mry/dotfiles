@@ -30,7 +30,7 @@ map('n', 'tl', 'gt', options)
 map('n', 'tc', ':tabclose<cr>', options)
 
 -- File Manager
-map('n', '-', '<cmd>e %:h<cr>', options)
+-- map('n', '-', '<cmd>e %:h/<cr>', options)
 
 
 -- Insert Mode

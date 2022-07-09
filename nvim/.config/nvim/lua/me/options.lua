@@ -4,8 +4,6 @@ local bo = vim.bo
 local g = vim.g
 local cmd = vim.cmd
 
--- local u = require('utils')
-
 o.completeopt = "menu,menuone,noselect"
 
 -- find files
@@ -44,7 +42,7 @@ o.showmode = false
 o.ruler = false
 o.lz = true
 o.cursorline = true
-o.laststatus = 3
+o.laststatus = 2
 
 -- mouse support
 o.mouse = 'a'
@@ -53,7 +51,7 @@ o.mouse = 'a'
 
 o.tgc = true
 cmd('syntax on')
-cmd('colorscheme tokyonight')
+cmd('colorscheme kanagawa')
 
 --IDK
 g.python3_host_prog = '/usr/bin/python'
