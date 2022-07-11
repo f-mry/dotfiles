@@ -37,13 +37,6 @@ map('n', 'tc', ':tabclose<cr>', options)
 map('i', 'jk', '<Esc>', options)
 
 
--- Formatting
-map('x', 'ga', '<Plug>(EasyAlign)', {})
-map('n', 'ga', '<Plug>(EasyAlign)', {})
-
--- Git Stuffs
-map('n', '<leader>gs', ':Git<cr>', options)
-map('n', '<leader>gl', ':Gclog<cr>', options)
 
 -- Background
 function _G.toggle_background()
