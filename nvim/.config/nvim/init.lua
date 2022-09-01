@@ -1,4 +1,4 @@
--- require('impatient')
+require('impatient')
 require('me')
 -- require('plugins.packer')
 -- require('me.plugins')

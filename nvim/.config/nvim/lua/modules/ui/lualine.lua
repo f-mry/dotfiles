@@ -24,7 +24,7 @@ end
 lualine.setup {
     options = {
         icons_enabled = true,
-        theme = 'auto',
+        theme = 'tokyonight',
         component_separators = { left = '|', right = '|'},
         section_separators = { left = '', right = ''},
         disabled_filetypes = {},
@@ -38,12 +38,9 @@ lualine.setup {
             end
         },
         lualine_b = {},
-        lualine_c = {{
-            'filename',
-            path = 1,
-
-        }},
-        lualine_x = {'diff', 'diagnostics', 'branch', 'filetype', 'progress', 'location'},
+        lualine_c = {{ 'filename', path = 1 }, 'diagnostics'},
+        -- lualine_x = {'diff', 'diagnostics', 'branch', 'filetype'},
+        lualine_x = {'diff', 'branch'},
         lualine_y = {},
         lualine_z = {}
     },
@@ -63,6 +60,7 @@ lualine.setup {
         ext("dapui_scopes", "DAP Scopes"),
         ext("dap-repl", "DAP REPL"),
         ext("dapui-console", "DAP Console"),
+        ext("TelescopePrompt", "Telescope"),
         {
             sections = {
                 lualine_a = {function()

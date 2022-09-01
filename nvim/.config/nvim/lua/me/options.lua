@@ -21,7 +21,8 @@ o.confirm = true
 -- o.smartcase = true
 o.hidden = true
 o.wrap = false
-o.sidescroll = 10
+o.sidescroll = 1
+o.sidescrolloff = 15
 
 -- Formatting
 bo.textwidth = 120
@@ -51,13 +52,13 @@ o.mouse = 'a'
 
 o.tgc = true
 cmd('syntax on')
-cmd('colorscheme kanagawa')
+cmd('colorscheme tokyonight')
 
 --IDK
 g.python3_host_prog = '/usr/bin/python'
 
 -- still idk but usefull
 cmd('au TextYankPost * silent! lua vim.highlight.on_yank({timeout=100})')
-o.swapfile = false
+o.swapfile = true
 -- o.undodir = '/home/farhanmry/.nvim/undodir'
 o.undofile = false

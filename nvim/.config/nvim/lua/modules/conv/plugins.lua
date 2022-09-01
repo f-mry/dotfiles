@@ -1,8 +1,9 @@
 local plugin = require('me.packer').register_plugin
+-- local conf = require('modules.conv.ts-context')
 
-plugin({'jiangmiao/auto-pairs', event = 'VimEnter'})
-plugin({'tpope/vim-surround'})
-plugin({'tpope/vim-commentary'})
+plugin({ 'jiangmiao/auto-pairs', event = 'InsertEnter' })
+plugin({ 'tpope/vim-surround', event = 'BufEnter' })
+plugin({ 'tpope/vim-commentary' })
 -- plugin({'haya14busa/is.vim'})
 plugin({
     'junegunn/vim-easy-align',
@@ -10,11 +11,67 @@ plugin({
         local map = vim.api.nvim_set_keymap
         map('x', 'ga', '<Plug>(EasyAlign)', {})
         map('n', 'ga', '<Plug>(EasyAlign)', {})
-    end
-})
-plugin({
-    'ggandor/lightspeed.nvim',
-    event = 'VimEnter'
+    end,
+    cmd = 'EasyAlign'
 
 })
-plugin({'tpope/vim-repeat'})
+plugin(
+    {
+        'ggandor/leap.nvim',
+        config = function()
+            require('leap').set_default_keymaps()
+        end
+    }
+)
+plugin({ 'tpope/vim-repeat' })
+
+plugin({
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+        require 'treesitter-context'.setup {
+            enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+            max_lines = 2, -- How many lines the window should span. Values <= 0 mean no limit.
+            trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+            patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+                -- For all filetypes
+                -- Note that setting an entry here replaces all other patterns for this entry.
+                -- By setting the 'default' entry below, you can control which nodes you want to
+                -- appear in the context window.
+                default = {
+                    'class',
+                    'function',
+                    'method',
+                    -- 'for', -- These won't appear in the context
+                    -- 'while',
+                    -- 'if',
+                    -- 'switch',
+                    -- 'case',
+                },
+                -- Example for a specific filetype.
+                -- If a pattern is missing, *open a PR* so everyone can benefit.
+                --   rust = {
+                --       'impl_item',
+                --   },
+            },
+            exact_patterns = {
+                -- Example for a specific filetype with Lua patterns
+                -- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
+                -- exactly match "impl_item" only)
+                -- rust = true,
+            },
+
+            -- [!] The options below are exposed but shouldn't require your attention,
+            --     you can safely ignore them.
+
+            zindex = 20, -- The Z-index of the context window
+            mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+            -- separator = '-', -- Separator between context and content. Should be a single character string, like '-'.
+            separator = nil, -- Separator between context and content. Should be a single character string, like '-'.
+        }
+
+        -- vim.api.nvim_create_user_command("ToggleContext", "TSContextToggle", {})
+
+    end,
+    require = { 'nvim-treesitter/nvim-treesitter' },
+    cmd = "TSContextToggle"
+})

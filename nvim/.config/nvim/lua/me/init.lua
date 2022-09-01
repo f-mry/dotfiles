@@ -2,6 +2,8 @@
 -- date: 2022-07-02
 -- License: MIT
 
+vim.o.tgc = true
+
 local vim = vim
 local home = os.getenv('HOME')
 -- remove check is windows because I only use mac or linux
@@ -52,8 +54,8 @@ createdir()
 
 local pack = require('me.packer')
 
-require('me.map')
+require('me.keymaps')
 pack.ensure_plugins()
-require('me.options')
 pack.load_compile()
 require('modules.completion.config')
+require('me.options')

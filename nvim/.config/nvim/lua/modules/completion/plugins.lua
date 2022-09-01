@@ -1,5 +1,5 @@
 local plugin = require('me.packer').register_plugin
--- local conf = require('modules.completion.config')
+local conf = require('modules.completion.config')
 
 plugin({
     'williamboman/nvim-lsp-installer',
@@ -12,19 +12,20 @@ plugin({
     requires = {
         'ms-jpq/coq.artifacts',
     },
-    config = function ()
+    config = function()
         vim.g.coq_settings = {
-            auto_start = true,
+            auto_start = 'shut-up',
             ["keymap.jump_to_mark"] = "<C-j>",
             ["clients.tmux.enabled"] = false,
-            ["clients.tags.enabled"] = false,
+            ["clients.tabnine.enabled"] = false,
             ["diplay.preview.positions.north"] = nil,
             ["diplay.preview.positions.south"] = nil,
-            ["completion.smart"] = false,
+            ["completion.smart"] = true,
         }
         require('coq')
     end
 })
 
-require('modules.completion.config')
+plugin({'ray-x/go.nvim'})
 
+require('modules.completion.config')
