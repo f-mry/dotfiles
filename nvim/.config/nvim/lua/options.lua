@@ -25,7 +25,7 @@ o.sidescroll = 1
 o.sidescrolloff = 15
 
 -- Formatting
-bo.textwidth = 120
+bo.textwidth = 80
 o.tabstop = 4
 o.shiftwidth = 4
 o.softtabstop = 4
@@ -36,14 +36,21 @@ o.spelllang = "id,en"
 bo.smartindent = true
 bo.autoindent = true
 
-o.formatoptions = 'cqjr'
+-- o.formatoptions = 'cqjr'
+o.nrformats = o.nrformats .. ",alpha"
 
 -- General
-o.showmode = false
+o.showmode = true
 o.ruler = false
-o.lz = true
+o.lz = false
 o.cursorline = true
-o.laststatus = 2
+o.laststatus = 3
+
+o.updatetime = 1000
+
+o.hlsearch = false
+o.incsearch = true
+o.redrawtime = 150
 
 -- mouse support
 o.mouse = 'a'
@@ -52,13 +59,13 @@ o.mouse = 'a'
 
 o.tgc = true
 cmd('syntax on')
-cmd('colorscheme tokyonight')
 
 --IDK
 g.python3_host_prog = '/usr/bin/python'
 
 -- still idk but usefull
-cmd('au TextYankPost * silent! lua vim.highlight.on_yank({timeout=100})')
-o.swapfile = true
--- o.undodir = '/home/farhanmry/.nvim/undodir'
-o.undofile = false
+cmd('au TextYankPost * silent! lua vim.highlight.on_yank({timeout=50})')
+
+o.swapfile = false
+o.undodir = '/home/farhanmry/.nvim/undodir'
+o.undofile = true

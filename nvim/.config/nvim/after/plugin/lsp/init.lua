@@ -1,14 +1,15 @@
-local present, lsp_installer = pcall(require, "nvim-lsp-installer")
-if not present then
+local ok, mason = pcall(require, "mason-lspconfig")
+if not ok then
     return
 end
-lsp_installer.setup()
 
-local present, lspconfig = pcall(require, "lspconfig")
-if not present then
+mason.setup()
+
+local lspconfig_installed, lspconfig = pcall(require, "lspconfig")
+if not lspconfig_installed then
     return
 end
-local lspconfig_util = require "lspconfig.util"
+local coq_installed, coq = pcall(require, "coq")
 
 local function on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -21,7 +22,7 @@ local function on_attach(client, bufnr)
     -- Mappings.
     buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
     buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+    buf_set_keymap("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
@@ -29,8 +30,8 @@ local function on_attach(client, bufnr)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next({float = false})<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({float = false})<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next({float = false})<CR>zz', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({float = false})<CR>zz', opts)
     buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", opts)
     buf_set_keymap("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
@@ -46,8 +47,9 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- capabilities = require("coq").update_capabilities(capabilities)
-capabilities = require("coq").lsp_ensure_capabilities(capabilities)
+if coq_installed then
+    capabilities = coq.lsp_ensure_capabilities(capabilities)
+end
 
 local servers = {
     intelephense = true,
@@ -66,13 +68,7 @@ local servers = {
     vimls = true,
     dockerls = true,
     yamlls = true,
-
-    -- golangci_lint_ls = {
-    --     init_options = {
-    --         command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1",
-    --                     "--enable", "revive" };
-    --     }
-    -- },
+    rust_analyzer = true,
 
     golangci_lint_ls = {
         autostart = true,
@@ -99,7 +95,10 @@ local servers = {
 
         settings = {
             gopls = {
-                codelenses = { test = true },
+                codelenses = {
+                    test = true,
+                    tidy = true,
+                },
                 analyses = { unusedparams = true },
                 staticcheck = true,
                 usePlaceholders = true,
@@ -187,6 +186,22 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     border = "single"
 }
 )
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+    vim.lsp.handlers.signature_help, {
+    -- Use a sharp border with `FloatBorder` highlights
+    border = "single"
+}
+)
+
+
+vim.diagnostic.config({
+    float = {
+        border = "single"
+    }
+})
+
+
 
 -- suppress error messages from lang servers
 vim.notify = function(msg, log_level, _opts)
