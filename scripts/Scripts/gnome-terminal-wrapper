@@ -1,0 +1,25 @@
+#!/bin/sh
+
+for term in "$TERMINAL" kitty alacritty
+do
+    echo $term
+    command -v "$term" >/dev/null 2>&1 || continue
+    [ "$term" = gnome-terminal ] && term=/usr/bin/gnome-terminal
+    [ "$1" = -- ] || set -- -- "$@"
+    case $term in
+        *gnome-terminal|kitty)
+            # uses --
+            ;;
+        mate-terminal|xfce4-terminal)
+            shift
+            set -- -x "$@"
+            ;;
+        *)
+            shift
+            set -- -e "$@"
+            ;;
+    esac
+    exec "$term" "$@"
+done
+printf >&2 '%s: Could not find a terminal.\n' "$0"
+exit 1

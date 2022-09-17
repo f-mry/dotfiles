@@ -67,5 +67,5 @@ g.python3_host_prog = '/usr/bin/python'
 cmd('au TextYankPost * silent! lua vim.highlight.on_yank({timeout=50})')
 
 o.swapfile = false
-o.undodir = '/home/farhanmry/.nvim/undodir'
+o.undodir = '/home/me/.local/share/nvim/undodir'
 o.undofile = true

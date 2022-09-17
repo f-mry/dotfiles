@@ -1,8 +1,3 @@
-#alias pomogoro="pomogoro --config /home/farhanmry/todo/pomogoro/config.toml"
-alias xampp="sudo /opt/lampp/xampp"
-alias pyactivate="source .venv/bin/activate"
-alias GPU="DRI_PRIME=1"
-alias condaon='eval "$(/home/farhanmry/anaconda3/bin/conda shell.zsh hook)"'
 alias todo='todo.sh'
 
 ## Exa
@@ -17,6 +12,9 @@ alias glo='git log --oneline --decorate'
 alias glog='git log --oneline --decorate --graph'
 alias gst='git status'
 alias gsw='git switch'
+alias gcw='~/Scripts/git-clone-worktree'
+alias gw='git worktree'
+alias gb='git branch'
 
 ## Tmux
 alias ta='tmux attach -t '
@@ -28,9 +26,5 @@ alias tload='tmuxp load $(tmuxp ls | fzf-tmux) --yes'
 alias tfreeze='tmuxp freeze'
 
 ## Project Alias
-alias project='cd ~/Code/project/$(ls ~/Code/project | fzf-tmux)'
-alias pro='cd ~/Code/project/$(ls ~/Code/project | fzf-tmux)'
-
-alias switch='~/script/dark-light-theme/switch.sh'
 
 alias hey='sudo'

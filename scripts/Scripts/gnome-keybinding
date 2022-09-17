@@ -1,0 +1,31 @@
+#!/usr/bin/bash
+
+for i in {1..9}
+do
+	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "[]"
+done
+
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "[]"
+
+for i in {1..9}
+do
+	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "['<Super>$i']"
+done
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "['<Super>0']"
+
+for i in {1..9}
+do
+	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "[]"
+done
+
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "[]"
+
+for i in {1..9}
+do
+	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<Shift><Super>$i']"
+done
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "['<Shift><Super>0']"
+
+gsettings set org.gnome.desktop.wm.keybindings move-to-center "['<Super>c']"
+
+
