@@ -1,11 +1,13 @@
 #!/usr/bin/bash
 
-for i in {1..9}
-do
-	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "[]"
-done
 
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "[]"
+# Workspace 
+# for i in {1..9}
+# do
+# 	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "[]"
+# done
+
+# gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "[]"
 
 for i in {1..9}
 do
@@ -13,12 +15,12 @@ do
 done
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "['<Super>0']"
 
-for i in {1..9}
-do
-	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "[]"
-done
+# for i in {1..9}
+# do
+# 	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "[]"
+# done
 
-gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "[]"
+# gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "[]"
 
 for i in {1..9}
 do
@@ -26,6 +28,32 @@ do
 done
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "['<Shift><Super>0']"
 
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "[]"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "[]"
+
+
+# Window Manipulation
+
+gsettings set org.gnome.mutter.keybindings toggle-tiled-right "['<Super>Right', '<Super><Ctrl>l']"
+gsettings set org.gnome.mutter.keybindings toggle-tiled-left "['<Super>Left', '<Super><Ctrl>h']"
+
+gsettings set org.gnome.desktop.wm.keybindings maximize "['<Super><Control>k']"
+gsettings set org.gnome.desktop.wm.keybindings unmaximize "['<Super><Control>j']"
+
+gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Super>f']"
+gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "[]"
+
 gsettings set org.gnome.desktop.wm.keybindings move-to-center "['<Super>c']"
 
+gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Super><Shift>Tab']"
 
+gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Alt><Shift>Tab']"
+
+# Window control
+
+gsettings set org.gnome.desktop.wm.keybindings close "['<Super>q']"
+
+gsettings set org.gnome.desktop.wm.keybindings begin-move "['<Super><Shift>m']"
+gsettings set org.gnome.desktop.wm.keybindings begin-resize "['<Super><Shift>r']"
