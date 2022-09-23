@@ -21,13 +21,13 @@ map('n', '[b', '<cmd>bprevious<cr>zz', options)
 
 map('n', '<leader>bo', '<cmd>ls<cr>', options)
 
-map('n', '<C-d>', '<C-d>zz', options)
-map('n', '<C-u>', '<C-u>zz', options)
-map('n', '<C-o>', '<C-o>zz', options)
-map('n', '<C-i>', '<C-i>zz', options)
+-- map('n', '<C-d>', '<C-d>zz', options)
+-- map('n', '<C-u>', '<C-u>zz', options)
+-- map('n', '<C-o>', '<C-o>zz', options)
+-- map('n', '<C-i>', '<C-i>zz', options)
 
-map('n', 'n', 'nzz', options)
-map('n', 'N', 'Nzz', options)
+-- map('n', 'n', 'nzz', options)
+-- map('n', 'N', 'Nzz', options)
 
 -- Convenience
 
@@ -42,7 +42,8 @@ map('n', 'N', 'Nzz', options)
 
 
 -- Insert Mode
-map('i', 'jk', '<Esc>', options)
+-- Try to use ctrl-c or alt-l to exit insert mode
+-- map('i', 'jk', '<Esc>', options)
 
 
 

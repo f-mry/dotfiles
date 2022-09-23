@@ -28,3 +28,13 @@ alias tfreeze='tmuxp freeze'
 ## Project Alias
 
 alias hey='sudo'
+
+alias hey='sudo'
+alias wo='~/Scripts/ws-finder'
+alias workspace='~/Scripts/ws-finder'
+
+## Kitten
+
+alias s='kitty +kitten ssh'
+
+alias sue='sudoedit'

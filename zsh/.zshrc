@@ -17,6 +17,8 @@ compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 
+export EDITOR=nvim
+
 #Prompt
 fpath+=($HOME/.zsh/prompt)
 autoload -Uz prompt_purification_setup && prompt_purification_setup
@@ -45,7 +47,7 @@ source '/usr/share/fzf/completion.zsh'
 
 export FZF_DEFAULT_COMMAND='fd --type file -E .git -E .venv -E node_modules -E vendor -E vendors'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='fd --type d -E .venv -E node_modules -E vendor -E vendors'
+export FZF_ALT_C_COMMAND='fd --type d -E .venv -E node_modules -E vendor -E vendors -E ,cache -d 4 -H'
 
 # # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # # command for listing path candidates.
@@ -62,6 +64,13 @@ _fzf_compgen_dir() {
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
+
+# Edit command line
+# use text editor to write comman then execute it on exit
+
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
 
 # zprof
 

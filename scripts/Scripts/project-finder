@@ -1,5 +1,0 @@
-#!/usr/bin/sh
-
-project_path=$(fd -t d -d 1 . $HOME/Project/ | fzf)
-
-cd $project_path

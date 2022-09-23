@@ -22,7 +22,7 @@ o.confirm = true
 o.hidden = true
 o.wrap = false
 o.sidescroll = 1
-o.sidescrolloff = 15
+o.sidescrolloff = 7
 
 -- Formatting
 bo.textwidth = 80
@@ -37,20 +37,18 @@ bo.smartindent = true
 bo.autoindent = true
 
 -- o.formatoptions = 'cqjr'
-o.nrformats = o.nrformats .. ",alpha"
+-- o.nrformats = o.nrformats .. ",alpha"
 
 -- General
 o.showmode = true
 o.ruler = false
-o.lz = false
+o.lazyredraw = false
 o.cursorline = true
 o.laststatus = 3
 
-o.updatetime = 1000
-
 o.hlsearch = false
 o.incsearch = true
-o.redrawtime = 150
+o.redrawtime = 50
 
 -- mouse support
 o.mouse = 'a'

@@ -35,7 +35,7 @@ local function on_attach(client, bufnr)
     buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format{async = true}<CR>", opts)
     buf_set_keymap("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    buf_set_keymap("i", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    -- buf_set_keymap("i", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap("n", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
     -- Set some keybinds conditional on server capabilities
@@ -69,13 +69,14 @@ local servers = {
     dockerls = true,
     yamlls = true,
     rust_analyzer = true,
+    -- golangci_lint_ls = true,
 
     golangci_lint_ls = {
         autostart = true,
         root_dir = lspconfig.util.root_pattern('.git', 'go.mod'),
         init_options = {
             command = { "golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1", "-c",
-                "/home/farhanmry/.config/golangci-lint/lsp-config.yaml" };
+                "/home/me/.config/golangci-lint/lsp-config.yaml" };
         }
     },
     gopls = {

@@ -1,0 +1,28 @@
+#!/bin/env bash
+
+selected_dir=$(find ~/Project -mindepth 1 -maxdepth 1 -type d | fzf)
+
+[[ -z $selected_dir ]] && exit 0
+
+session_name=$(basename "$selected_dir" | tr " " "_")
+window_name="[project: ${session_name}]"
+
+if [[ $TERM -eq "xterm-kitty" ]]; then
+
+    kitty -T "${window_name}" -d $selected_dir --detach
+    kitty @close-window
+
+else
+    [[ -z $TMUX ]] && \
+        tmux new-session -A -s $session_name -c $selected_dir && \
+        exit 0
+
+    if ! tmux has-session -t=$session_name 2> /dev/null; then
+        tmux new-session -ds $session_name -c $selected_dir
+    fi
+
+    tmux switch-client -t $session_name
+fi
+
+
+

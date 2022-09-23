@@ -69,6 +69,8 @@ local function init()
             require('gitsigns').setup()
         end
     }
+    use {'sindrets/diffview.nvim'}
+
 
     use { 'ThePrimeagen/git-worktree.nvim' }
 

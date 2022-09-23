@@ -9,10 +9,10 @@ if ok then
             boolean = {},
             functions = {},
             variables = {},
-            sidebars = "dark",
-            floats = "dark",
+            -- sidebars = "dark",
+            -- floats = "dark",
         },
-
+        hide_inactive_statusline = true,
         sidebars = { "qf", "fugitive", "terminal", "packer", "netrw", "lir" },
     })
 end
